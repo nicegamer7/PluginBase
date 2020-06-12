@@ -18,16 +18,16 @@
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>ninja.leaping.configurate</groupId>
+            <groupId>org.spongepowered</groupId>
             <artifactId>configurate-core</artifactId>
-            <version>3.1</version>
+            <version>3.6.1</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>ninja.leaping.configurate</groupId>
+            <groupId>org.spongepowered</groupId>
             <artifactId>configurate-hocon</artifactId>
-            <version>3.1</version>
+            <version>3.6.1</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
@@ -37,7 +37,7 @@
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
-                <groupId>com.torstling.intellij</groupId>
+                <groupId>se.eris</groupId>
                 <artifactId>notnull-instrumenter-maven-plugin</artifactId>
             </plugin>
             <plugin>
@@ -67,7 +67,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>1.5</version>
+                <version>3.2.4</version>
                 <executions>
                     <execution>
                         <phase>package</phase>

@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Sponge API Version -->
-        <sponge.version>3.0.0</sponge.version>
+        <sponge.version>7.2.0</sponge.version>
     </properties>
 
     <!-- Modules -->
@@ -23,13 +23,6 @@
         <module>plugin-sponge</module>
         <module>testspongeplugin</module>
     </modules>
-
-    <repositories>
-        <repository>
-            <id>sponge</id>
-            <url>http://repo.spongepowered.org/maven/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <dependency>

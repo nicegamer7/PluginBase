@@ -6,7 +6,9 @@ dependencies {
   compile project(':PluginBase-Sponge:Commands-Sponge')
   compile project(':PluginBase-Sponge:Minecraft-Link-Sponge')
   compile project(':PluginBase-Sponge:Messaging-Sponge')
-    testCompile group: 'com.h2database', name: 'h2', version:'1.3.174'
-    testCompile group: 'org.springframework', name: 'spring-jdbc', version:'3.2.4.RELEASE'
+  // h2 versions past 1.4.196 cause Sponge to crash!
+  // see https://forums.spongepowered.org/t/sponge-crashes-when-h2-v1-4-197-is-shaded-in-a-plugin/27024
+  testCompile group: 'com.h2database', name: 'h2', version: '1.4.196'
+  testCompile group: 'org.springframework', name: 'spring-jdbc', version: '5.2.7.RELEASE'
   testCompile project(':PluginBase-Core:JDBC-Spring')
 }

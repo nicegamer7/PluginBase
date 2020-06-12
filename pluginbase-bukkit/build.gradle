@@ -1,4 +1,4 @@
-def bukkitVersion = "1.12-R0.1-SNAPSHOT"
+def bukkitVersion = "1.15.2-R0.1-SNAPSHOT"
 
 subprojects {
     repositories {

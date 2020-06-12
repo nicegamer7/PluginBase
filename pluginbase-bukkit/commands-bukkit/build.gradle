@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 assemble.dependsOn shadowJar
@@ -13,8 +13,8 @@ dependencies {
 }
 
 shadowJar {
-    baseName = project.name
-    classifier = null
+    setArchivesBaseName(project.name)
+    setArchiveClassifier(null)
     exclude 'tools.jar'
     relocate 'org.apache.commons', 'pluginbase.apache-commons'
 }

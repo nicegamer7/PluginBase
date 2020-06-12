@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 assemble.dependsOn shadowJar
@@ -8,27 +8,27 @@ install.dependsOn shadowJar
 description = ''
 dependencies {
     shadow project(':PluginBase-Core:Messaging')
-    compile group: 'com.googlecode.gentyref', name: 'gentyref', version:'1.1.0'
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-json', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-gson', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-yaml', version: configurateVersion
+    compile group: 'com.googlecode.gentyref', name: 'gentyref', version: '1.2.0'
+    shadow group: 'org.spongepowered', name: 'configurate-hocon', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-json', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-gson', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-yaml', version: configurateVersion
     testCompile project(':PluginBase-Core:Messaging')
-    testCompile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: configurateVersion
-    testCompile group: 'ninja.leaping.configurate', name: 'configurate-json', version: configurateVersion
-    testCompile group: 'ninja.leaping.configurate', name: 'configurate-gson', version: configurateVersion
-    testCompile group: 'ninja.leaping.configurate', name: 'configurate-yaml', version: configurateVersion
+    testCompile group: 'org.spongepowered', name: 'configurate-hocon', version: configurateVersion
+    testCompile group: 'org.spongepowered', name: 'configurate-json', version: configurateVersion
+    testCompile group: 'org.spongepowered', name: 'configurate-gson', version: configurateVersion
+    testCompile group: 'org.spongepowered', name: 'configurate-yaml', version: configurateVersion
 }
 
 task packageTests(type: Jar) {
     from sourceSets.test.output
-    classifier = 'tests'
+    setArchiveClassifier('tests')
 }
 artifacts.archives packageTests
 
 shadowJar {
-    baseName = project.name
-    classifier = null
+    setArchivesBaseName(project.name)
+    setArchiveClassifier(null)
     exclude 'tools.jar'
     relocate 'com.googlecode.gentyref', 'pluginbase.gentyref'
 }

@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 assemble.dependsOn shadowJar
@@ -8,12 +8,12 @@ install.dependsOn shadowJar
 description = ''
 dependencies {
     compile project(':PluginBase-Core:Logging')
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-core', version: configurateVersion
-    testCompile group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-core', version: configurateVersion
+    testCompile group: 'org.spongepowered', name: 'configurate-hocon', version: configurateVersion
 }
 
 shadowJar {
-    baseName = project.name
-    classifier = null
+    setArchivesBaseName(project.name)
+    setArchiveClassifier(null)
     exclude 'tools.jar'
 }

@@ -34,7 +34,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
             <plugin>
-                <groupId>com.torstling.intellij</groupId>
+                <groupId>se.eris</groupId>
                 <artifactId>notnull-instrumenter-maven-plugin</artifactId>
             </plugin>
             <plugin>

@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 assemble.dependsOn shadowJar
@@ -16,20 +16,20 @@ dependencies {
     compile project(':PluginBase-Core:Minecraft-Link')
     compile project(':PluginBase-Core:Commands')
     compile project(':PluginBase-Core:JDBC')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-hocon', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-json', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-gson', version: configurateVersion
-    shadow group: 'ninja.leaping.configurate', name: 'configurate-yaml', version: configurateVersion
-    shadow(group: 'org.mcstats.bukkit', name: 'metrics', version:'R6') {
+    shadow group: 'org.spongepowered', name: 'configurate-hocon', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-json', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-gson', version: configurateVersion
+    shadow group: 'org.spongepowered', name: 'configurate-yaml', version: configurateVersion
+    shadow(group: 'org.mcstats.bukkit', name: 'metrics', version: 'R6') {
         exclude(module: 'bukkit')
     }
 }
 
 shadowJar {
-    baseName = project.name
-    classifier = null
+    setArchivesBaseName(project.name)
+    setArchiveClassifier(null)
     exclude 'tools.jar'
     relocate 'kotlin', kotlinShadedPattern
     relocate 'com.googlecode.gentyref', 'pluginbase.gentyref'

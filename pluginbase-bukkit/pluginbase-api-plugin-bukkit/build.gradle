@@ -1,5 +1,5 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '2.0.1'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 
 assemble.dependsOn shadowJar
@@ -9,12 +9,14 @@ description = ''
 dependencies {
     compile project(':PluginBase-Bukkit:Plugin-Bukkit')
     compile project(':PluginBase-Core:JDBC-Spring')
-    compile group: 'com.h2database', name: 'h2', version:'1.3.174'
+    // h2 versions past 1.4.196 cause Sponge to crash!
+    // see https://forums.spongepowered.org/t/sponge-crashes-when-h2-v1-4-197-is-shaded-in-a-plugin/27024
+    compile group: 'com.h2database', name: 'h2', version: '1.4.196'
 }
 
 shadowJar {
-    baseName = project.name
-    classifier = null
+    setArchivesBaseName(project.name)
+    setArchiveClassifier(null)
     exclude 'tools.jar'
     dependencies {
         exclude(dependency("com.google.guava:.*:.*"))
@@ -25,7 +27,7 @@ shadowJar {
     relocate 'org.apache.commons', 'pluginbase.apache-commons'
     relocate 'com.typesafe', 'pluginbase.typesafe'
     relocate 'kotlin', 'pluginbase.kotlin'
-    relocate 'ninja.leaping.configurate', 'pluginbase.configurate'
+    relocate 'org.spongepowered.configurate', 'pluginbase.configurate'
     relocate 'com.googlecode.gentyref', 'pluginbase.gentyref'
     relocate 'org.springframework', 'pluginbase.spring'
 }

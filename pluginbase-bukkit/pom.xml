@@ -11,7 +11,7 @@
 
     <properties>
         <!-- Bukkit Version -->
-        <bukkit.version>1.12-R0.1-SNAPSHOT</bukkit.version>
+        <bukkit.version>1.15.2-R0.1-SNAPSHOT</bukkit.version>
     </properties>
 
     <!-- Modules -->

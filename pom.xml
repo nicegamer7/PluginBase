@@ -5,7 +5,7 @@
     <artifactId>PluginBase</artifactId>
     <version>1.6.0-SNAPSHOT</version>
     <name>PluginBase</name>
-    <url>http://ci.onarandombox.org</url>
+    <url>https://ci.onarandombox.org</url>
     <description>dumptruckman's plugin template and tools</description>
     <packaging>pom</packaging>
 
@@ -34,27 +34,31 @@
         <utilities.version>0.1-SNAPSHOT</utilities.version>
         <jdbc.version>0.1-SNAPSHOT</jdbc.version>
         <jdbc-spring.version>0.1-SNAPSHOT</jdbc-spring.version>
-        <commons-io.version>2.4</commons-io.version>
-        <kotlin.version>1.1.3</kotlin.version>
+        <commons-io.version>2.7</commons-io.version>
+        <kotlin.version>1.3.72</kotlin.version>
         <kotlin.shaded.pattern>pluginbase.kotlin</kotlin.shaded.pattern>
     </properties>
 
     <ciManagement>
         <system>jenkins</system>
-        <url>http://ci.onarandombox.com</url>
+        <url>https://ci.onarandombox.com</url>
     </ciManagement>
 
     <repositories>
         <repository>
             <id>onarandombox</id>
-            <url>http://repo.onarandombox.com/content/groups/public/</url>
+            <url>https://repo.onarandombox.com/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>sponge-repo</id>
+            <url>https://repo.spongepowered.org/maven/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>onarandombox-3rdparty</id>
-            <url>http://repo.onarandombox.com/content/repositories/thirdparty</url>
+            <url>https://repo.onarandombox.com/content/repositories/thirdparty</url>
         </pluginRepository>
     </pluginRepositories>
 
@@ -87,58 +91,58 @@
     <distributionManagement>
         <repository>
             <id>OnARandomBox</id>
-            <url>http://repo.onarandombox.com/content/repositories/thirdparty/</url>
+            <url>https://repo.onarandombox.com/content/repositories/thirdparty/</url>
         </repository>
         <snapshotRepository>
             <id>OnARandomBox</id>
-            <url>http://repo.onarandombox.com/content/repositories/thirdparty-dev/</url>
+            <url>https://repo.onarandombox.com/content/repositories/thirdparty-dev/</url>
         </snapshotRepository>
     </distributionManagement>
 
     <dependencies>
         <dependency>
-            <groupId>com.intellij</groupId>
+            <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>12.0</version>
+            <version>19.0.0</version>
             <type>jar</type>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jre8</artifactId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
         <!-- Start of Test Dependencies -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.8.2</version>
+            <version>4.13</version>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-module-junit4</artifactId>
-            <version>1.4.9</version>
+            <version>1.7.4</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-easymock</artifactId>
-            <version>1.4.9</version>
+            <version>1.7.4</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.powermock</groupId>
             <artifactId>powermock-api-mockito</artifactId>
-            <version>1.4.9</version>
+            <version>1.7.4</version>
             <type>jar</type>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.easymock</groupId>
             <artifactId>easymock</artifactId>
-            <version>3.0</version>
+            <version>4.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -191,7 +195,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.5.1</version>
+                    <version>3.8.1</version>
                     <configuration>
                         <source>1.8</source>
                         <target>1.8</target>
@@ -225,9 +229,9 @@
                 </plugin>
                 <!-- IntelliJ Annotation Instrumenter -->
                 <plugin>
-                    <groupId>com.torstling.intellij</groupId>
+                    <groupId>se.eris</groupId>
                     <artifactId>notnull-instrumenter-maven-plugin</artifactId>
-                    <version>0.1.0</version>
+                    <version>0.6.8</version>
                     <executions>
                         <execution>
                             <goals>
@@ -241,7 +245,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-jar-plugin</artifactId>
-                    <version>2.3.1</version>
+                    <version>3.2.0</version>
                     <configuration>
                         <archive>
                             <manifestEntries>
@@ -253,7 +257,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>2.1.2</version>
+                    <version>3.2.1</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -268,7 +272,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>2.11</version>
+                    <version>2.22.2</version>
                     <configuration>
                         <excludes>
                             <exclude>**/TestCommandSender.java</exclude>
@@ -282,7 +286,7 @@
                         <dependency>
                             <groupId>org.apache.maven.surefire</groupId>
                             <artifactId>surefire-junit47</artifactId>
-                            <version>2.11</version>
+                            <version>2.22.2</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -290,7 +294,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>2.8</version>
+                    <version>3.1.1</version>
                     <configuration>
                         <enableRulesSummary>true</enableRulesSummary>
                         <configLocation>${project.basedir}/config/checks.xml</configLocation>
