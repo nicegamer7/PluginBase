@@ -28,7 +28,7 @@ import java.io.File;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-@Plugin(id = "TestSpongePlugin", name = "TestSpongePlugin")
+@Plugin(id = "test_sponge_plugin", name = "TestSpongePlugin")
 public class TestPlugin {
 
     JdbcAgent jdbcAgent;
@@ -105,7 +105,7 @@ public class TestPlugin {
     }
 
     @Listener
-    private void serverStopping(GameStoppingEvent event) {
+    public void serverStopping(GameStoppingEvent event) {
         pluginAgent.disablePluginBase();
     }
 

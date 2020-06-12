@@ -2,6 +2,7 @@ package pluginbase.sponge;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.spongepowered.api.Platform;
 import org.spongepowered.api.entity.living.player.Player;
 import pluginbase.minecraft.BasePlayer;
 import pluginbase.plugin.ServerInterface;
@@ -15,13 +16,13 @@ class SpongeServerInterface implements ServerInterface {
     @NotNull
     @Override
     public String getName() {
-        return SpongeTools.getGame().getPlatform().getImplementation().getName();
+        return SpongeTools.getGame().getPlatform().getContainer(Platform.Component.IMPLEMENTATION).getName();
     }
 
     @NotNull
     @Override
     public String getVersion() {
-        return SpongeTools.getGame().getPlatform().getImplementation().getVersion();
+        return SpongeTools.getGame().getPlatform().getContainer(Platform.Component.IMPLEMENTATION).getVersion().orElse("Unknown Version");
     }
 
     @NotNull

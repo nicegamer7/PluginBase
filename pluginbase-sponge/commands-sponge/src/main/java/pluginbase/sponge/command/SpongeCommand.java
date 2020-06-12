@@ -6,6 +6,8 @@ import org.spongepowered.api.command.CommandException;
 import org.spongepowered.api.command.CommandResult;
 import org.spongepowered.api.command.CommandSource;
 import org.spongepowered.api.text.Text;
+import org.spongepowered.api.world.Location;
+import org.spongepowered.api.world.World;
 import pluginbase.command.Command;
 import pluginbase.command.CommandProvider;
 import pluginbase.messages.Message;
@@ -13,6 +15,7 @@ import pluginbase.minecraft.BasePlayer;
 import pluginbase.permission.Perm;
 import pluginbase.sponge.minecraft.SpongeTools;
 
+import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -55,15 +58,13 @@ class SpongeCommand implements CommandCallable {
         return true;
     }
 
-    @NotNull
     @Override
-    public Optional<? extends Text> getShortDescription(@NotNull CommandSource commandSource) {
+    public Optional<Text> getShortDescription(@NotNull CommandSource commandSource) {
         return Optional.<Text>of(Text.of(desc));
     }
 
-    @NotNull
     @Override
-    public Optional<? extends Text> getHelp(@NotNull CommandSource commandSource) {
+    public Optional<Text> getHelp(@NotNull CommandSource commandSource) {
         Message helpMessage = command.getHelp();
         if (helpMessage != null) {
             String localizedHelp = provider.getMessager().getLocalizedMessage(helpMessage);
@@ -80,7 +81,7 @@ class SpongeCommand implements CommandCallable {
 
     @NotNull
     @Override
-    public List<String> getSuggestions(@NotNull CommandSource commandSource, @NotNull String s) throws CommandException {
+    public List<String> getSuggestions(@NotNull CommandSource commandSource, @NotNull String s, @Nullable Location<World> targetPosition) throws CommandException {
         return provider.getCommandHandler().tabComplete(SpongeTools.wrapSender(commandSource), s.split("\\s"));
     }
 }

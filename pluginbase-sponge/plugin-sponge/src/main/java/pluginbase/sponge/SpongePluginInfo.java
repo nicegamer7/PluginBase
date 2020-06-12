@@ -22,6 +22,6 @@ class SpongePluginInfo implements PluginInfo {
     @NotNull
     @Override
     public String getVersion() {
-        return pluginContainer.getVersion();
+        return pluginContainer.getVersion().orElse("Unknown Version");
     }
 }
