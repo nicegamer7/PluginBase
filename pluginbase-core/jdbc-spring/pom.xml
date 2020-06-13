@@ -30,6 +30,12 @@
             <version>5.2.7.RELEASE</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
