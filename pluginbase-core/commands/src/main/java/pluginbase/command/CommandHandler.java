@@ -10,6 +10,9 @@ import pluginbase.messages.messaging.SendablePluginBaseException;
 import pluginbase.minecraft.BasePlayer;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -97,6 +100,92 @@ public abstract class CommandHandler {
      * @throws IllegalArgumentException if there was some problem with the command class passed in.
      */
     public boolean registerCommand(@NotNull CommandProvider commandProvider, @NotNull Class<? extends Command> commandClass) throws IllegalArgumentException {
+        // TODO: everything in this if statement can be done without reflection
+        if (requiresPrefix()) {
+            try {
+                CommandInfo ci = commandClass.getAnnotation(CommandInfo.class);
+                Method method = Class.class.getDeclaredMethod("annotationData", null);
+                method.setAccessible(true);
+
+                Object annotationData = method.invoke(commandClass);
+                Field annotations = annotationData.getClass().getDeclaredField("annotations");
+                annotations.setAccessible(true);
+                Map<Class<? extends Annotation>, Annotation> map = (Map<Class<? extends Annotation>, Annotation>) annotations.get(annotationData);
+                map.put(CommandInfo.class, new CommandInfo() {
+                    @Override
+                    public Class<? extends Annotation> annotationType() {
+                        return ci.annotationType();
+                    }
+
+                    @Override
+                    public String primaryAlias() {
+                        return ci.primaryAlias();
+                    }
+
+                    @Override
+                    public boolean prefixPrimary() {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean directlyPrefixPrimary() {
+                        return false;
+                    }
+
+                    @Override
+                    public String[] aliases() {
+                        return new String[0];
+                    }
+
+                    @Override
+                    public String[] prefixedAliases() {
+                        Set<String> prefixedAliases = new HashSet<>();
+                        prefixedAliases.addAll(Arrays.asList(ci.prefixedAliases()));
+                        prefixedAliases.addAll(Arrays.asList(ci.directlyPrefixedAliases()));
+                        if (prefixedAliases.size() == 0) prefixedAliases.addAll(Arrays.asList(ci.aliases()));
+                        return prefixedAliases.toArray(new String[prefixedAliases.size()]);
+                    }
+
+                    @Override
+                    public String[] directlyPrefixedAliases() {
+                        return new String[0];
+                    }
+
+                    @Override
+                    public String usage() {
+                        return ci.usage();
+                    }
+
+                    @Override
+                    public String desc() {
+                        return ci.desc();
+                    }
+
+                    @Override
+                    public int min() {
+                        return ci.min();
+                    }
+
+                    @Override
+                    public int max() {
+                        return ci.max();
+                    }
+
+                    @Override
+                    public String flags() {
+                        return ci.flags();
+                    }
+
+                    @Override
+                    public boolean anyFlags() {
+                        return ci.anyFlags();
+                    }
+                });
+            } catch (Exception  e) {
+                e.printStackTrace();
+            }
+        }
+
         CommandBuilder commandBuilder = new CommandBuilder(commandProvider, commandClass);
         CommandRegistration commandRegistration = commandBuilder.createCommandRegistration();
         assertNotAlreadyRegistered(commandClass, commandRegistration);
@@ -164,6 +253,15 @@ public abstract class CommandHandler {
     void configureCommandKeys(String primaryAlias) {
         commandTree.registerKeysForAlias(primaryAlias);
     }
+
+    /**
+     * Checks whether the server implementation requires a non-direct command prefix for every command.
+     * If this is the case, commands like {@code /[prefix]version} will not be supported. And will be replaced
+     * with the non-direct version: {@code /[prefix] version}.
+     *
+     * @return true if the server implementation requires a non-direct command prefix for every command.
+     */
+    protected abstract boolean requiresPrefix();
 
     /**
      * Tells the server implementation to register the given command information as a command so that

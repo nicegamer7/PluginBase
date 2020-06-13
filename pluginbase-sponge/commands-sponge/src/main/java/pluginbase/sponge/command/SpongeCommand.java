@@ -9,6 +9,7 @@ import org.spongepowered.api.text.Text;
 import org.spongepowered.api.world.Location;
 import org.spongepowered.api.world.World;
 import pluginbase.command.Command;
+import pluginbase.command.CommandInfo;
 import pluginbase.command.CommandProvider;
 import pluginbase.messages.Message;
 import pluginbase.minecraft.BasePlayer;
@@ -20,6 +21,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+// TODO: look into Sponge's CommandExecutor
 class SpongeCommand implements CommandCallable {
 
     private final CommandProvider provider;
@@ -34,11 +36,11 @@ class SpongeCommand implements CommandCallable {
         this.desc = desc;
     }
 
-    // FIXME BAD THINGS WERE DONE TO GET THINGS FLOWING AGAIN, UNTESTED CODE! - SupaHam
     @NotNull
     @Override
     public CommandResult process(@NotNull CommandSource commandSource, @NotNull String arguments) throws CommandException {
-        List<String> args = Arrays.asList(arguments.split("\\s"));
+        arguments = String.join(" ", command.getClass().getAnnotation(CommandInfo.class).primaryAlias(), arguments);
+        List<String> args = Arrays.asList((provider.getCommandPrefix() + " " + arguments).split("\\s"));
         BasePlayer basePlayer = SpongeTools.wrapSender(commandSource);
         try {
             return provider.getCommandHandler().locateAndRunCommand(basePlayer, args.toArray(new String[args.size()]))
@@ -82,6 +84,7 @@ class SpongeCommand implements CommandCallable {
     @NotNull
     @Override
     public List<String> getSuggestions(@NotNull CommandSource commandSource, @NotNull String s, @Nullable Location<World> targetPosition) throws CommandException {
-        return provider.getCommandHandler().tabComplete(SpongeTools.wrapSender(commandSource), s.split("\\s"));
+        s = String.join(" ", command.getClass().getAnnotation(CommandInfo.class).primaryAlias(), s);
+        return provider.getCommandHandler().tabComplete(SpongeTools.wrapSender(commandSource), (provider.getCommandPrefix() + " " + s).split("\\s"));
     }
 }

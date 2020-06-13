@@ -21,7 +21,6 @@
 */
 package pluginbase.bukkit.command;
 
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.command.TabExecutor;

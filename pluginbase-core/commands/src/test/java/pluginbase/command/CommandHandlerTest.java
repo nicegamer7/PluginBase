@@ -15,6 +15,12 @@ public class CommandHandlerTest extends TestCase {
                 configureCommandKeys("pb");
                 configureCommandKeys("pb reload");
             }
+
+            @Override
+            protected boolean requiresPrefix() {
+                return false;
+            }
+
             @Override
             protected boolean register(CommandRegistration commandInfo, Command cmd) {
                 return true;

@@ -42,6 +42,11 @@ public final class BukkitCommandHandler extends CommandHandler implements TabExe
         this.plugin = plugin;
     }
 
+    @Override
+    protected boolean requiresPrefix() {
+        return false;
+    }
+
     protected boolean register(@NotNull final CommandRegistration commandInfo, @NotNull final pluginbase.command.Command command) {
         CommandMap commandMap = getCommandMap();
         if (commandMap == null) {
